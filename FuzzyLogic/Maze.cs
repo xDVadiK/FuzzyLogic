@@ -11,13 +11,13 @@ namespace FuzzyLogic
     {
         private char[,] maze;
         private Robot robot;
-        FuzzyVariable near;
-        FuzzyVariable far;
+        private FuzzyVariable near;
+        private FuzzyVariable far;
 
-        public Maze(string maze, int[] parametersNear, int[] parametersFar)
+        public Maze(string maze, double[] parametersNear, double[] parametersFar)
         {
             string[] rows = maze.Split('\n');
-            this.maze = new char[rows.Length - 1, rows[0].Length - 1];
+            this.maze = new char[rows.Length, rows[0].Length - 1];
             for (int i = 0; i < rows.Length; i++)
             {
                 string row = rows[i].Trim();

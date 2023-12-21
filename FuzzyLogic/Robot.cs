@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FuzzyLogic
 {
     internal class Robot
     {
         private char[,] maze;
-        FuzzyVariable near;
-        FuzzyVariable far;
+        private FuzzyVariable near;
+        private FuzzyVariable far;
         public int RRow { get; set; }
         public int RColumn { get; set; }
 
@@ -59,7 +56,7 @@ namespace FuzzyLogic
             }
         }
 
-        public int[] CalculateDistances()
+        private int[] CalculateDistances()
         {
             int rowCount = maze.GetLength(0);
             int columnCount = maze.GetLength(1);
@@ -77,7 +74,6 @@ namespace FuzzyLogic
                 }
             }
 
-            // Array to store distances (top, right, bottom, left)
             int[] distances = {0,0,0,0};
 
             // top
