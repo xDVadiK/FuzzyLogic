@@ -71,16 +71,31 @@ namespace FuzzyLogic
                 Invoke((MethodInvoker)delegate
                 {
                     char[,] array = maze.movement();
-                    string str = "";
-                    for (int i = 0; i < array.GetLength(0); i++)
+                    if (array.Length == 1)
                     {
-                        for (int j = 0; j < array.GetLength(1); j++)
+                        keepRunning = false;
+                        comboBox1.Enabled = true;
+                        button1.Enabled = true;
+                        button2.Enabled = false;
+                        MessageBox.Show(
+                            "The robot is trapped",
+                            "Error",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                    } 
+                    else
+                    {
+                        string str = "";
+                        for (int i = 0; i < array.GetLength(0); i++)
                         {
-                            str += array[i, j] + "\t";
+                            for (int j = 0; j < array.GetLength(1); j++)
+                            {
+                                str += array[i, j] + "\t";
+                            }
+                            str += "\r\n";
                         }
-                        str += "\r\n";
+                        textBox1.Text = str;
                     }
-                    textBox1.Text = str;
                 });
                 Thread.Sleep(200);
             }

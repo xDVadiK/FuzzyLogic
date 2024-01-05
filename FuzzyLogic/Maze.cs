@@ -34,23 +34,27 @@ namespace FuzzyLogic
         public char[,] movement()
         {
             string direction = robot.DeterminingDirectionMovement();
-            maze[robot.RRow, robot.RColumn] = '-';
-            switch (direction)
+            if(!direction.Equals("stop"))
             {
-                case "top":
-                    maze[robot.RRow - 1, robot.RColumn] = 'r';
-                    break;
-                case "right":
-                    maze[robot.RRow, robot.RColumn + 1] = 'r';
-                    break;
-                case "bottom":
-                    maze[robot.RRow + 1, robot.RColumn] = 'r';
-                    break;
-                case "left":
-                    maze[robot.RRow, robot.RColumn - 1] = 'r';
-                    break;
+                maze[robot.RRow, robot.RColumn] = '-';
+                switch (direction)
+                {
+                    case "top":
+                        maze[robot.RRow - 1, robot.RColumn] = 'r';
+                        break;
+                    case "right":
+                        maze[robot.RRow, robot.RColumn + 1] = 'r';
+                        break;
+                    case "bottom":
+                        maze[robot.RRow + 1, robot.RColumn] = 'r';
+                        break;
+                    case "left":
+                        maze[robot.RRow, robot.RColumn - 1] = 'r';
+                        break;
+                }
+                return maze;
             }
-            return maze;
+            return new char[1, 1];
         }
 
 

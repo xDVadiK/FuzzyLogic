@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace FuzzyLogic
 {
@@ -10,6 +9,8 @@ namespace FuzzyLogic
         private FuzzyVariable far;
         public int RRow { get; set; }
         public int RColumn { get; set; }
+
+        private string prevStep = null;
 
         public Robot(char[,] maze, FuzzyVariable near, FuzzyVariable far)
         {
@@ -35,25 +36,331 @@ namespace FuzzyLogic
                 }
             }
 
-            List<string> matchingVariableNames = new List<string>();
-
-            foreach (LinguisticVariable direction in directions)
+            // Rule 1
+            if (directions[0].Variable.Name == "near"
+                && directions[1].Variable.Name == "near"
+                && directions[2].Variable.Name == "near"
+                && directions[3].Variable.Name == "far")
             {
-                if (direction.Variable != null && direction.Variable.Name == "far")
-                {
-                    matchingVariableNames.Add(direction.Name);
-                }
+                prevStep = "left";
+                return "left";
             }
-
-            if (matchingVariableNames.Count > 0)
+            // Rule 2
+            if (directions[0].Variable.Name == "near"
+                && directions[1].Variable.Name == "near"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "near")
             {
-                Random random = new Random();
-                return matchingVariableNames[random.Next(0, matchingVariableNames.Count)];
+                prevStep = "bottom";
+                return "bottom";
             }
-            else
+            // Rule 3.1
+            if (directions[0].Variable.Name == "near"
+                && directions[1].Variable.Name == "near"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("right")))
+            {
+                prevStep = "bottom";
+                return "bottom";
+            }
+            // Rule 3.2
+            if (directions[0].Variable.Name == "near"
+                && directions[1].Variable.Name == "near"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("top")))
+            {
+                prevStep = "left";
+                return "left";
+            }
+            // Rule 4
+            if (directions[0].Variable.Name == "near"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "near"
+                && directions[3].Variable.Name == "near")
+            {
+                prevStep = "right";
+                return "right";
+            }
+            // Rule 5.1
+            if (directions[0].Variable.Name == "near"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "near"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("right")))
+            {
+                prevStep = "right";
+                return "right";
+            }
+            // Rule 5.2
+            if (directions[0].Variable.Name == "near"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "near"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("left")))
+            {
+                prevStep = "left";
+                return "left";
+            }
+            // Rule 6.1
+            if (directions[0].Variable.Name == "near"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "near"
+                && (prevStep == null || prevStep.Equals("left")))
+            {
+                prevStep = "bottom";
+                return "bottom";
+            }
+            // Rule 6.2
+            if (directions[0].Variable.Name == "near"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "near"
+                && (prevStep == null || prevStep.Equals("top")))
+            {
+                prevStep = "right";
+                return "right";
+            }
+            // Rule 7.1
+            if (directions[0].Variable.Name == "near"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("left")))
+            {
+                prevStep = "bottom";
+                return "bottom";
+            }
+            // Rule 7.2
+            if (directions[0].Variable.Name == "near"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("top")))
+            {
+                prevStep = "left";
+                return "left";
+            }
+            // Rule 7.3
+            if (directions[0].Variable.Name == "near"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("right")))
+            {
+                prevStep = "right";
+                return "right";
+            }
+            // Rule 8
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "near"
+                && directions[2].Variable.Name == "near"
+                && directions[3].Variable.Name == "near")
+            {
+                prevStep = "top";
+                return "top";
+            }
+            // Rule 9.1
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "near"
+                && directions[2].Variable.Name == "near"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("bottom")))
+            {
+                prevStep = "left";
+                return "left";
+            }
+            // Rule 9.2
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "near"
+                && directions[2].Variable.Name == "near"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("right")))
+            {
+                prevStep = "top";
+                return "top";
+            }
+            // Rule 10.1
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "near"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "near"
+                && (prevStep == null || prevStep.Equals("bottom")))
+            {
+                prevStep = "bottom";
+                return "bottom";
+            }
+            // Rule 10.2
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "near"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "near"
+                && (prevStep == null || prevStep.Equals("top")))
+            {
+                prevStep = "top";
+                return "top";
+            }
+            // Rule 11.1
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "near"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("top")))
+            {
+                prevStep = "top";
+                return "top";
+            }
+            // Rule 11.2
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "near"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("right")))
+            {
+                prevStep = "top";
+                return "top";
+            }
+            // Rule 11.3
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "near"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("bottom")))
+            {
+                prevStep = "left";
+                return "left";
+            }
+            // Rule 12.1
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "near"
+                && directions[3].Variable.Name == "near"
+                && (prevStep == null || prevStep.Equals("bottom")))
+            {
+                prevStep = "right";
+                return "right";
+            }
+            // Rule 12.2
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "near"
+                && directions[3].Variable.Name == "near"
+                && (prevStep == null || prevStep.Equals("left")))
+            {
+                prevStep = "top";
+                return "top";
+            }
+            // Rule 13.1
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "near"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("bottom")))
+            {
+                prevStep = "right";
+                return "right";
+            }
+            // Rule 13.2
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "near"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("right")))
+            {
+                prevStep = "top";
+                return "top";
+            }
+            // Rule 13.3
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "near"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("left")))
+            {
+                prevStep = "top";
+                return "top";
+            }
+            // Rule 14.1
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "near"
+                && (prevStep == null || prevStep.Equals("left")))
+            {   
+                prevStep = "top";
+                return "top";
+            }
+            // Rule 14.2
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "near"
+                && (prevStep == null || prevStep.Equals("top")))
+            {
+                prevStep = "right";
+                return "right";
+            }
+            // Rule 14.3
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "near"
+                && (prevStep == null || prevStep.Equals("bottom")))
+            {
+                prevStep = "right";
+                return "right";
+            }
+            // Rule 15.1
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("bottom")))
+            {
+                prevStep = "right";
+                return "right";
+            }
+            // Rule 15.2
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("top")))
+            {
+                prevStep = "left";
+                return "left";
+            }
+            // Rule 15.3
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("left")))
+            {
+                prevStep = "left";
+                return "left";
+            }
+            // Rule 15.4
+            if (directions[0].Variable.Name == "far"
+                && directions[1].Variable.Name == "far"
+                && directions[2].Variable.Name == "far"
+                && directions[3].Variable.Name == "far"
+                && (prevStep == null || prevStep.Equals("right")))
+            {
+                prevStep = "right";
+                return "right";
+            }
+            // Rule 16
+            if (directions[0].Variable.Name == "near"
+                && directions[1].Variable.Name == "near"
+                && directions[2].Variable.Name == "near"
+                && directions[3].Variable.Name == "near")
             {
                 return "stop";
             }
+            return "stop";
         }
 
         private int[] CalculateDistances()
